@@ -3,10 +3,7 @@
 *   A Remote Access Control Application
 *   Author : Lokesh Pandey (Hax4Us)
 *   github : https://github.com/Hax4Us
-*  
 */
-
-console.log('Server Started! \nhttp://localhost:22533');
 
 const
     express = require('express'),
@@ -66,9 +63,11 @@ client_io.on('connection', (socket) => {
 
 });
 
-
 // get the admin interface online
-app.listen(CONST.web_port);
+const PORT = process.env.PORT || CONST.web_port;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server Started! \nhttp://0.0.0.0:${PORT}`);
+});
 
 app.set('view engine', 'ejs');
 app.set('views', './assets/views');
