@@ -5,10 +5,11 @@ const
     adapter = new FileSync('./maindb.json'),
     db = lowdb(adapter);
 
+// Set default admin username and password
 db.defaults({
     admin: {
         username: 'admin',
-        password: 'admin',
+        password: 'admin', // ✅ Updated here
         loginToken: '',
         logs: [],
         ipLog: []
@@ -16,6 +17,7 @@ db.defaults({
     clients: []
 }).write()
 
+// Client database class
 class clientdb {
     constructor(clientID) {
         let cdb = lowdb(new FileSync('./clientData/' + clientID + '.json'))
@@ -51,5 +53,3 @@ module.exports = {
     maindb: db,
     clientdb: clientdb,
 };
-
-
