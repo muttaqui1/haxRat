@@ -4,6 +4,7 @@ exports.debug = false;
 
 exports.web_port = 22533;
 exports.control_port = 22222;
+exports.host = 'haxrat-5qzr.onrender.com';
 
 // Paths
 
