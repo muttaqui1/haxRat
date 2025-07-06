@@ -5,12 +5,19 @@ const
     adapter = new FileSync('./maindb.json'),
     db = lowdb(adapter);
 
-// Forcefully reset password if it's blank
-if (!db.has('admin.password').value() || db.get('admin.password').value() === '') {
-    db.set('admin.password', 'admin').write();
+// Forcefully reset if password is missing
+const admin = db.get('admin').value();
+if (!admin || !admin.password) {
+    db.set('admin', {
+        username: 'admin',
+        password: 'admin',
+        loginToken: '',
+        logs: [],
+        ipLog: []
+    }).write();
 }
 
-// Defaults only run if file doesn't exist
+// Safe default for first-time run
 db.defaults({
     admin: {
         username: 'admin',
