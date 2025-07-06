@@ -1,11 +1,11 @@
 {
   "name": "haxRat",
   "version": "1.0.0",
-  "description": "haxRat - Remote Android Managment Suite",
+  "description": "haxRat - Remote Android Management Suite",
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
-    "start": "node index.js"
+    "start": "node resetDb.js && node index.js"
   },
   "author": "Lokesh Pandey (Hax4Us)",
   "license": "ISC",
