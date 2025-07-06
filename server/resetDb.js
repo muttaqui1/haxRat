@@ -3,7 +3,19 @@ const path = './maindb.json';
 
 if (fs.existsSync(path)) {
   fs.unlinkSync(path);
-  console.log('✔️ maindb.json deleted successfully');
-} else {
-  console.log('⚠️ maindb.json not found (first-time run)');
+  console.log('✔️ Old maindb.json deleted');
 }
+
+const adminDb = {
+  admin: {
+    username: 'admin',
+    password: 'admin',
+    loginToken: '',
+    logs: [],
+    ipLog: []
+  },
+  clients: []
+};
+
+fs.writeFileSync(path, JSON.stringify(adminDb, null, 2));
+console.log('✅ New maindb.json created with default login');
